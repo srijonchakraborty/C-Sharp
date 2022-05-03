@@ -1,0 +1,36 @@
+//697. Degree of an Array
+
+
+public class Solution {
+    public int FindShortestSubArray(int[] nums) {
+         int prevCount = 0;
+            int maxLenFor = 0;
+            int minRes = int.MaxValue;
+            Dictionary<int, int> tracker = new Dictionary<int, int>();
+            for(int idx = 0; idx < nums.Length; idx++)
+            {
+                if (tracker.ContainsKey(nums[idx]))
+                {
+                    tracker[nums[idx]] = tracker[nums[idx]] + 1;
+                }
+                else
+                {
+                    tracker.Add(nums[idx], 1);
+                   
+                }
+                if (prevCount < tracker[nums[idx]])
+                {
+                    prevCount = tracker[nums[idx]];
+                }
+            }
+            var final = tracker.Where(c => c.Value == prevCount);
+            foreach(var itm in final)
+            {
+                int res = Array.LastIndexOf(nums, itm.Key) - Array.IndexOf(nums, itm.Key) + 1;
+                minRes= Math.Min(res, minRes);
+            }
+
+            
+            return minRes;
+    }
+}
