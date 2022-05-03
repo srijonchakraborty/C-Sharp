@@ -1,0 +1,57 @@
+//648. Replace Words
+
+public class Solution {
+    public string ReplaceWords(IList<string> dictionary, string sentence) {
+            string final = "";
+            bool isfirst = true;
+            string[] temp = sentence.Split(" ");
+           
+            for(int i = 0; i < dictionary.Count(); i++)
+            {
+                for (int j = 0; j < dictionary.Count(); j++) 
+                {
+                    if (i != j)
+                    {
+                        if (dictionary[j].StartsWith(dictionary[i]))
+                        {
+                            dictionary[j] = dictionary[i];
+                        }
+                    }
+                } 
+            }  
+          
+            for(int i = 0; i < temp.Length; i++)
+            {
+                bool isfound = false;
+                string matchedItem = "";
+                foreach (var itm in dictionary)
+                {
+                    if (temp[i].StartsWith(itm))
+                    {
+                        isfound = true;
+                        matchedItem = itm;
+                        break;
+                    }
+                }
+
+                if (isfound)
+                {
+                    if (Char.IsLetter(temp[i][temp[i].Length - 1]))
+                    {
+                        final = final + (isfirst ? "" : " ") + matchedItem;
+                    }
+                    else
+                    {
+                        final = final + (isfirst ? "" : " ") + matchedItem+ temp[i][temp[i].Length - 1];
+                    }
+                }
+                else
+                {
+                    final = final + (isfirst ? "" : " ") + temp[i];
+                }
+
+                isfirst = false;
+            }
+            return final;
+    }
+}
