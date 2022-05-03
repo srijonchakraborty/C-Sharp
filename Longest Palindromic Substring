@@ -1,0 +1,54 @@
+//5. Longest Palindromic Substring
+
+public class Solution {
+    public string LongestPalindrome(string s) {
+            string res = "";
+            int[,] myMatrix = new int[s.Length, s.Length];
+            for(int i=0;i < s.Length; i++)
+            {
+                //for single char item are always Palindrom
+                myMatrix[i, i] = 1;
+
+                if (res.Length == 0)
+                {
+                    res = Char.ToString(s[i]);
+                }
+
+                //for 2 items palindrom check and making the table
+                if(i< s.Length - 1)
+                {
+                    if (s[i] == s[i + 1])
+                    {
+                        myMatrix[i, i+1] = 1;
+                        if (res.Length == 1)
+                        {
+                            res = s.Substring(i,2);
+                        }
+                    }
+                }
+            }
+            if (s.Length >= 3)
+            {
+                int lenTemp = 3;
+                while (lenTemp <= s.Length)
+                {
+                    for (int i = 0; i <= s.Length - lenTemp; i++)
+                    {
+                        //it means last char are same and Inside the boundary is palindrom the current substring is Palindrom
+                        int lastIndex = i + lenTemp - 1;
+                        if (s[i] == s[lastIndex] && myMatrix[i + 1, lastIndex - 1] == 1)
+                        {
+                            if (res.Length < s.Substring(i, lenTemp).Length)
+                            {
+                                res = s.Substring(i, lenTemp);                                
+                            }
+                            myMatrix[i, lastIndex] = 1;
+                        }
+                    }
+                    lenTemp++;
+                }
+            }
+            
+            return res;
+    }
+}
