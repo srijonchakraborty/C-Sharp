@@ -1,0 +1,25 @@
+//1108. Defanging an IP Address
+public class Solution {
+    public string DefangIPaddr(string address) {
+              char[] myIP = new char[address.Length+6];
+            int ipIndex = 0;
+            for(int i=0;i< address.Length; i++)
+            {
+                if (address[i] == '.')
+                {
+                    myIP[ipIndex] = '[';
+                    ipIndex++;
+                    myIP[ipIndex] = '.';
+                    ipIndex++;
+                    myIP[ipIndex] = ']';
+                    ipIndex++;
+                }
+                else
+                {
+                    myIP[ipIndex] = address[i];
+                    ipIndex++;
+                }
+            }
+            return new string(myIP) ;
+    }
+}
