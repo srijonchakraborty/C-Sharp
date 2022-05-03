@@ -1,0 +1,68 @@
+//12. Integer to Roman
+public class Solution {
+     private string GetSingleNumberToString(int num,string IReplace,string VReplace,string XReplace)
+        {
+            switch (num)
+            {
+                case 1:
+                    return IReplace;
+                case 2:
+                    return IReplace + IReplace;
+                case 3:
+                    return IReplace + IReplace+ IReplace;
+                case 4:
+                    return IReplace + VReplace;
+                case 5:
+                    return VReplace;
+                case 6:
+                    return VReplace+ IReplace;
+                case 7:
+                    return VReplace + IReplace + IReplace;
+                case 8:
+                    return VReplace + IReplace + IReplace+ IReplace;
+                case 9:
+                    return IReplace + XReplace;
+                case 10:
+                    return XReplace;
+                default:
+                    return "";
+            }
+        }
+        public string IntToRoman(int num)
+        {
+            string final = "";
+            while (num > 0)
+            {
+                if(num>=1000)
+                {
+                    int temp = num % 1000;
+                    int valueInThousand = num - temp;
+                    for(int i=0;i< valueInThousand / 1000; i++)
+                    {
+                        final = final + "M";
+                    }
+                    num = temp;
+                }
+                else if (num >= 100)
+                {
+                    int temp = num % 100;
+                    int valueInHundreds = (num - temp)/100;
+                    final= final+GetSingleNumberToString(valueInHundreds, "C", "D", "M");
+                    num = temp;
+                }
+                else if (num >= 10)
+                {
+                    int temp = num % 10;
+                    int valueInTens = (num - temp) / 10;
+                    final = final + GetSingleNumberToString(valueInTens, "X", "L", "C");
+                    num = temp;
+                }
+                else
+                {
+                    final = final + GetSingleNumberToString(num, "I", "V", "X");
+                    num = 0;
+                }
+            }
+            return final;
+        }
+}
