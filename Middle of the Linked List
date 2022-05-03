@@ -1,0 +1,28 @@
+//876. Middle of the Linked List
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode MiddleNode(ListNode head) {
+            ListNode middleNode = null;
+            List<ListNode> tempList = new List<ListNode>();
+            ListNode current = head;
+            while (current != null)
+            {
+                tempList.Add(current);
+                current = current.next;
+            }
+
+            middleNode = tempList[tempList.Count / 2];
+            return middleNode;
+    }
+}
