@@ -1,0 +1,76 @@
+//92. Reverse Linked List II (leetcode)
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode ReverseBetween(ListNode head, int left, int right) {
+            bool isfirst = true;
+            ListNode afterRight = null;
+            ListNode firstLeft = null;
+            ListNode currentNode = head;
+            ListNode prevNode = null;
+            ListNode nodeBeforeLeft = null;
+
+            if (left == right)
+            {
+                return head;
+            }
+
+            int currentIteration = 1;
+
+            while (currentNode != null && currentIteration <= right)
+            {
+                if (currentIteration == right)
+                {
+                    ListNode temp = new ListNode();
+                    temp.val = currentNode.val;
+                    temp.next = prevNode;
+                    prevNode = temp;
+
+                    afterRight = currentNode.next;
+                    break;
+                }
+                if (currentIteration >= left)
+                {
+                    ListNode temp = new ListNode();
+                    temp.val = currentNode.val;
+                    temp.next = prevNode;
+
+                    prevNode = temp;
+
+                    if (isfirst)
+                    {
+                        firstLeft = temp;
+                        isfirst = false;
+                    }
+                }
+                else
+                {
+                    nodeBeforeLeft = currentNode;
+                }
+                currentNode = currentNode.next;
+                currentIteration++;
+            }
+
+            //Merge Lists 
+            if (nodeBeforeLeft != null)
+            {
+                nodeBeforeLeft.next = prevNode;
+            }
+            else
+            {
+                head = prevNode;
+            }
+            firstLeft.next = afterRight;
+            return head;
+    }
+}
