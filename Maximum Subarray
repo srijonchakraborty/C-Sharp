@@ -1,0 +1,22 @@
+//53. Maximum Subarray
+
+public class Solution {
+    public int MaxSubArray(int[] nums) {
+            int res = 0;
+            if (nums.Length == 1)
+            {
+                res = nums[0];
+            }
+            else
+            {
+                int prevCalc = nums[0];
+                res = prevCalc;
+                for (int i = 1; i < nums.Length; i++)
+                {
+                    prevCalc = Math.Max(nums[i], nums[i] + prevCalc);
+                    res = Math.Max(res, prevCalc);
+                }
+            }
+            return res;
+    }
+}
