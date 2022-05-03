@@ -1,0 +1,38 @@
+//206. Reverse Linked List/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+            if (head==null) return null;   
+            ListNode finalRev = null;
+            ListNode current = head;
+            if (head.next == null)
+            {
+                return head;
+            }
+            else if (head.next.next == null)
+            {
+                finalRev = head.next;
+                finalRev.next = new ListNode();
+                finalRev.next.val = head.val;
+                finalRev.next.next = null;
+                return finalRev;
+            }
+            while (current != null)
+            {
+                ListNode temp = new ListNode();
+                temp.val = current.val;
+                temp.next = finalRev;
+                finalRev = temp;
+                current = current.next;
+            }
+            return finalRev;
+    }
+}
