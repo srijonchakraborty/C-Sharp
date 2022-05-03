@@ -1,0 +1,53 @@
+//1184. Distance Between Bus Stops
+
+public class Solution {
+    public int DistanceBetweenBusStops(int[] distance, int start, int destination) {
+             int res = 0;
+            int one = 0;
+            int two = 0;
+           
+            if(start == destination)
+            {
+                return 0;
+            }
+            if(start < destination)
+            {
+                //Positive
+                for(int i= start;i< destination; i++)
+                {
+                    one = one + distance[i];
+                }
+
+                //Negative
+                for (int i = start - 1; i >= 0; i--)
+                {
+                    two = two + distance[i];
+                }
+                for (int i = distance.Length - 1; i>= destination; i--)
+                {
+                    two = two + distance[i];
+                }
+            }
+
+            if (start > destination)
+            {
+                //Negative
+                for (int i = start-1; i >= destination; i--)
+                {
+                    two = two + distance[i];
+                }
+
+                //Positive
+                for (int i = start; i < distance.Length; i++)
+                {
+                    one = one + distance[i];
+                }
+                for (int i = 0; i < destination; i++)
+                {
+                    one = one + distance[i];
+                }
+            }
+            res = Math.Min(one, two);
+            return res;
+    }
+}
