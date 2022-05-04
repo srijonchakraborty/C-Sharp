@@ -1,0 +1,16 @@
+public class Solution {
+    public int FindJudge(int n, int[][] trust) {
+         int[] trusted= new int[n + 1];
+            foreach (var itm in trust)
+            {
+                trusted[itm[0]] = trusted[itm[0]] - 1;
+                trusted[itm[1]] = trusted[itm[1]] + 1;
+            }
+            for(int idx=1;idx< trusted.Length;idx++)
+            {
+                if (trusted[idx] == n - 1)
+                    return idx;
+            }
+            return -1;
+    }
+}
