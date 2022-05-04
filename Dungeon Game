@@ -1,0 +1,53 @@
+public class Solution {
+
+        public int CalculateMinimumHP(int[][] dungeon)
+        {
+            int maxrow = dungeon.Length;
+            int maxcol = dungeon[0].Length;
+            int[,] mymatrix = new int[dungeon.Length, dungeon[0].Length];
+            if (dungeon.Length == 1 && dungeon[0].Length == 1)
+            {
+                if (dungeon[0][0] < 0)
+                {
+                   
+                    return Math.Abs(dungeon[0][0])+1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+
+            int temp = dungeon[dungeon.Length - 1][dungeon[0].Length - 1];
+            mymatrix[dungeon.Length - 1, dungeon[0].Length-1] = temp >= 0 ? 1 : (Math.Abs(temp) + 1);
+            
+            for (int row= dungeon.Length - 1; row >= 0; row--)
+            {
+                for (int col = dungeon[0].Length - 1; col >= 0; col--)
+                {
+                    if (row == maxrow-1 && col == maxcol-1)
+                    {
+                        continue;
+                    }
+                    
+                    int res = 0;
+                    if (row == maxrow-1)
+                    {
+                        res = mymatrix[row,col + 1] - dungeon[row][col];
+                    }
+                    else if (col == maxcol-1)
+                    {
+                        res = mymatrix[row + 1, col] - dungeon[row][col];
+                    }
+                    else
+                    {
+                        res = Math.Min(mymatrix[row + 1, col], mymatrix[row, col + 1]) - dungeon[row][col];
+                    }
+                    mymatrix[row, col] = res <= 0 ? 1 : res;
+                }
+            }
+
+            return mymatrix[0, 0];
+        }
+    
+}
