@@ -1,0 +1,26 @@
+//2079. Watering Plants
+//https://leetcode.com/problems/watering-plants/
+
+public class Solution {
+    public int WateringPlants(int[] plants, int capacity) {
+            int myvalue = 0;
+            int currentBucket = capacity;
+            for (int i = 0; i < plants.Length; i++)
+            {
+                int currentIndexValue = plants[i];
+                if(currentBucket>= currentIndexValue)
+                {
+                    currentBucket = currentBucket - currentIndexValue;
+                    myvalue = myvalue + 1;
+                }
+                else
+                {
+                    myvalue = myvalue + i;
+                    currentBucket = capacity;
+                    myvalue = myvalue + i+1;
+                    currentBucket = currentBucket - currentIndexValue;
+                }
+            }
+            return myvalue;
+    }
+}
