@@ -1,0 +1,44 @@
+using System;
+
+public class Solution {
+    public int FirstMissingPositive(int[] nums)
+        {
+            Array.Sort(nums);
+            var n = Array.FindIndex(nums, x => x > 0);
+            if (n == -1 || nums[n] > 1)
+            {
+                return 1;
+            }
+            else if (nums[n]==1)
+            {
+                int currentNumber = 1;
+                int? nextNumber = null;
+                int arrarylength = nums.Length;
+                for (int i = n; i < arrarylength; i++)
+                {
+                    if(nums[i] != currentNumber)
+                    {
+                        break;
+                    }
+
+                    if((i+1)== arrarylength)
+                    {
+                        nextNumber = null;
+                    }
+                    else
+                    {
+                        nextNumber = nums[i + 1];
+                    }
+                    if (currentNumber != nextNumber)
+                    {
+                        currentNumber++;
+                    }
+                }
+                return currentNumber;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+}
