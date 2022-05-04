@@ -1,0 +1,12 @@
+//2011. Final Value of Variable After Performing Operations
+
+public class Solution {
+    public int FinalValueAfterOperations(string[] operations) {
+            int X=0;
+            for (int i = 0; i < operations.Length; i++)
+            {
+                X=(operations[i] == "X++" || operations[i] == "++X") ? X+1 : X-1;
+            }
+            return X; 
+    }
+}
