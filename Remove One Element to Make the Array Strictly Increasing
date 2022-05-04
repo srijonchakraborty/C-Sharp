@@ -1,0 +1,36 @@
+//1909. Remove One Element to Make the Array Strictly Increasing
+
+public class Solution {
+    public bool CanBeIncreasing(int[] nums) {
+        bool flag = false;
+            for(int i=0;i< nums.Length; i++)
+            {
+                int prev=int.MinValue;
+                for(int j = 0; j< nums.Length; j++)
+                {
+                    if (i == j)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if(prev>= nums[j])
+                        {
+                            prev = int.MinValue;
+                            break;
+                        }
+                        else
+                        {
+                            prev = nums[j];
+                        }
+                    }
+                }
+                if (prev> int.MinValue)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            return flag;
+    }
+}
