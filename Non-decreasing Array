@@ -1,0 +1,61 @@
+//665. Non-decreasing Array
+public class Solution {
+  public bool CheckPossibility(int[] nums)
+        {
+            if (nums.Length == 1)
+                return true;
+
+            int changeCount=0;
+            for(int i=0;i< nums.Length - 1; i++)
+            {
+                if (nums[i] <= nums[i + 1])
+                {
+                    continue;
+                }
+                else
+                {
+                    if (i == 0)
+                    {
+                        changeCount++;
+                        nums[i] = nums[i + 1] - 1;
+                    }
+                    else
+                    {
+                        int nextPrevDiff = int.MaxValue;
+                        nextPrevDiff = nums[i + 1] - nums[i - 1];
+                        if (nextPrevDiff >= 0)
+                        {
+                            changeCount++;
+                            nums[i] = nums[i + 1];
+                        }
+                        else
+                        {
+                            i++;
+                            if (i == (nums.Length - 1))
+                            {
+                                changeCount++;
+                                nums[i] = nums[i - 1];
+                            }
+                            else
+                            {
+                                nextPrevDiff = nums[i + 1] - nums[i - 1];
+                                if (nextPrevDiff >= 0)
+                                {
+                                    changeCount++;
+                                    nums[i] = nums[i - 1] + nextPrevDiff;
+                                }
+                                else
+                                {
+                                    changeCount = 2;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (changeCount > 1) break;
+            }
+          
+            return !(changeCount > 1);
+        }
+}
