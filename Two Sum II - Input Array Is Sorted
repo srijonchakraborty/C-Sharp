@@ -1,0 +1,34 @@
+public class Solution {
+    public int[] TwoSum(int[] numbers, int target) {
+          int[] tempArray = new int[2];
+            List<int> temp = new List<int>();
+            var tempFilterArray = numbers.Where(c => c <= target).ToArray();
+            if (tempFilterArray.Length < 2)
+            {
+                tempFilterArray = numbers;
+            }
+
+            int tempTarget = target;
+            bool isDone = false;
+            
+            for(int i=0;i< tempFilterArray.Length; i++)
+            {
+                tempTarget = target- numbers[i];
+                for (int j=i+1; j < tempFilterArray.Length; j++)
+                {
+                    if (tempTarget- tempFilterArray[j] == 0)
+                    {
+                        tempArray[0] = i + 1;
+                        tempArray[1] = j + 1;
+                        isDone = true;
+                        break;
+                    }
+                }
+                if (isDone)
+                {
+                    break;
+                }
+            }
+            return tempArray;
+    }
+}
