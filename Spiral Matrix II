@@ -1,0 +1,149 @@
+public class Solution {
+    public int[][] GenerateMatrix(int n) {
+        int StartingRow = 0, EndingRow = n - 1, StartingColumn = 0, EndingColumn = n - 1;
+            //Array off array
+            int[][] final = new int[n][];
+
+            int[,] My2d = new int[n, n];
+            
+            bool isFirstRight = true;
+            int maxvalueLimit = n * n;
+           
+            int currentValue = 1;
+           
+            while (currentValue<= maxvalueLimit)
+            {
+                //----> Right Move
+                #region Right Move
+                //Check if Limit Exit
+                if (currentValue > maxvalueLimit)
+                {
+                    break;
+                }
+                for (int i = StartingColumn; i <= EndingColumn; i++)
+                {
+                    if (isFirstRight)
+                    {
+                        My2d[StartingRow, i] = currentValue;
+                    }
+                    else
+                    {
+                        My2d[StartingRow-1, i] = currentValue;
+                    }
+                    currentValue++;
+                    if (currentValue > maxvalueLimit)
+                    {
+                        break;
+                    }
+                }
+
+                #region Update Section
+                //If it is first right
+                if (isFirstRight)
+                {
+                    isFirstRight = false;
+                    StartingRow = StartingRow + 1;
+                    var tempStartingColumn = StartingColumn;
+                    StartingColumn = EndingColumn - 1;
+                    EndingColumn = tempStartingColumn;
+                }
+                else
+                {
+                    //StartingRow = StartingRow + 1;
+                    var tempStartingColumn = StartingColumn;
+                    StartingColumn = EndingColumn - 1;
+                    EndingColumn = tempStartingColumn;
+                } 
+                #endregion
+
+                #endregion
+
+                #region \/ Down Move
+                if (currentValue > maxvalueLimit)
+                {
+                    break;
+                }
+                for (int i = StartingRow; i <= EndingRow; i++)
+                {
+                    My2d[i,StartingColumn+1] = currentValue;
+                    currentValue++;
+                    if (currentValue > maxvalueLimit)
+                    {
+                        break;
+                    }
+                }
+                #region UPdate Section
+                if (currentValue <= maxvalueLimit)
+                {
+                    var tempStartingRow = StartingRow;
+                    StartingRow = EndingRow - 1;
+                    EndingRow = tempStartingRow;
+                } 
+                #endregion
+
+                #endregion
+
+                #region <-- LEFT Move
+                if (currentValue > maxvalueLimit)
+                {
+                    break;
+                }
+                for (int i = StartingColumn; i >= EndingColumn; i--)
+                {
+                    My2d[StartingRow+1, i] = currentValue;
+                    currentValue++;
+                    if (currentValue > maxvalueLimit)
+                    {
+                        break;
+                    }
+                }
+                //Update Section
+                if (currentValue <= maxvalueLimit)
+                {
+                    var tempStartingCol = StartingColumn;
+                    StartingColumn = EndingColumn + 1;
+                    EndingColumn = tempStartingCol;
+                }
+                #endregion
+
+                #region /\ Up Move
+                if (currentValue > maxvalueLimit)
+                {
+                    break;
+                }
+                for (int i = StartingRow; i >= EndingRow; i--)
+                {
+                    My2d[ i, StartingColumn - 1] = currentValue;
+                    currentValue++;
+                    if (currentValue > maxvalueLimit)
+                    {
+                        break;
+                    }
+                }
+                //Update Section
+                if (currentValue <= maxvalueLimit)
+                {
+                    var tempStartingRow = StartingRow;
+                    StartingRow = EndingRow+1;
+                    EndingRow = tempStartingRow;
+                }
+                #endregion
+            }
+
+            for(int i = 0; i < n; i++)
+            {
+                int[] temp = new int[n];
+                for (int j = 0; j < n; j++)
+                {
+                    temp[j] = My2d[i, j];
+
+                    //Console.Write(My2d[i, j]);
+                    //Console.Write("  ");
+                }
+                //Console.WriteLine("");
+                final[i] = temp;
+            }
+
+            return final;
+    }
+}
