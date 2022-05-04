@@ -1,0 +1,78 @@
+public class Solution {
+     int[] countMapper=null;
+        public IList<int> CountSmaller(int[] nums)
+        {
+            IList<int> items = new List<int>();
+            countMapper = new int[nums.Length];
+            int[] orgIdx = new int[nums.Length];
+            for(int i=0;i< nums.Length; i++)
+            {
+                orgIdx[i] = i;
+            }
+            sortM(nums, orgIdx, 0, nums.Length - 1);
+            for (int i = 0; i < nums.Length; i++)
+            {
+                items.Add(countMapper[i]);
+            }
+            return items;
+        }
+
+        public void sortM(int[] nums, int[] orgIdx,int left,int right)
+        {
+            if (left < right)
+            {
+                int mid = (left+right) / 2;
+                sortM(nums, orgIdx, left,mid);
+                sortM(nums, orgIdx, mid+1, right);
+                mergeAll(nums, orgIdx, left, mid, right);
+            }
+        }
+        public void mergeAll(int[] nums, int[] orgIdx, int left,int mid, int right)
+        {
+            int leftarrLength = mid - left + 1;
+            int rightarrLength = right - mid;
+
+            int[] leftarr = new int[leftarrLength];
+            int[] rightarr = new int[rightarrLength];
+
+            for (int idx = 0; idx < leftarrLength; idx++)
+            {
+                leftarr[idx] = orgIdx[left + idx];
+            }
+            for (int idx = 0; idx < rightarrLength; idx++)
+            {
+                rightarr[idx] = orgIdx[mid + idx + 1];
+            }
+
+            int i = 0, j = 0, k = left, rightCount = 0;
+            while(i< leftarrLength && j< rightarrLength)
+            {
+                if(nums[leftarr[i]]<= nums[rightarr[j]])
+                {
+                    orgIdx[k] = leftarr[i];
+                    countMapper[leftarr[i]] = countMapper[leftarr[i]] + rightCount;
+                    i++;
+                }
+                else
+                {
+                    orgIdx[k] = rightarr[j];
+                    rightCount++;
+                    j++;
+                }
+                k++;
+            }
+            while(i< leftarrLength)
+            {
+                orgIdx[k] = leftarr[i];
+                countMapper[leftarr[i]] = countMapper[leftarr[i]] + rightCount;
+                i++;
+                k++;
+            }
+            while (j< rightarrLength)
+            {
+                orgIdx[k] =rightarr[j];
+                j++;
+                k++;
+            }
+        }
+}
