@@ -1,0 +1,30 @@
+public class Solution {
+    public int RemoveDuplicates(int[] nums) {
+         int uniqueItems = 0;
+            int cursor = 0;
+            int lasUniqItem = 0;
+            for(int i=0;i< nums.Length; i++)
+            {
+                if (i == 0)
+                {
+                    uniqueItems++;
+                    lasUniqItem = nums[i];
+                }
+                else
+                {
+                    if(lasUniqItem == nums[i])
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        cursor++;
+                        nums[cursor] = nums[i];
+                        uniqueItems++;
+                        lasUniqItem = nums[i];
+                    }
+                }
+            }
+            return uniqueItems;
+    }
+}
