@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public int PairSum(ListNode head) {
+           if (head == null) return 0;
+            if (head.next == null) return 0;
+            if (head.next.next == null) return head.val + head.next.val;
+            int res = int.MinValue;
+            List<int> temp = new List<int>();
+
+            ListNode currentNode = head;
+            while (currentNode != null)
+            {
+                temp.Add(currentNode.val);
+                currentNode = currentNode.next;
+            }
+
+            for(int i=0;i< temp.Count/2; i++)
+            {
+                int tempVal = temp[i] + temp[temp.Count - 1 - i];
+                if(tempVal> res)
+                {
+                    res = tempVal;
+                }
+            }
+
+            return res;
+    }
+}
