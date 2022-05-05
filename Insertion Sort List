@@ -1,0 +1,35 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode InsertionSortList(ListNode head) {
+            if (head == null) return null;
+            if (head.next == null) return head;
+            ListNode current = head;
+         
+            List<int> temp = new List<int>();
+            while (current != null)
+            {
+                temp.Add(current.val);
+                current = current.next;
+            }
+            temp.Sort();
+            current = head;
+            int count = 0;
+            while (current != null)
+            {
+                current.val = temp[count];
+                current = current.next;
+                count++;
+            }
+            return head;
+    }
+}
