@@ -1,0 +1,70 @@
+//25. Reverse Nodes in k-Group
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode ReverseKGroup(ListNode head, int k) {
+            if (head == null) return null;
+            if (head.next == null) return head;
+            if(k<=1) return head;
+            ListNode current = head;
+            ListNode cursor = head;
+            ListNode final = null;
+            ListNode tempNodes = null;
+            //ListNode tempNodesCursor = null;
+            //ListNode currentHead= null;
+            ListNode currenttail = null;
+            ListNode prevtail = null;
+            int currentCount = 0;
+            while (current != null)
+            {
+                var temp = new ListNode();
+                temp.val = current.val;
+                if (tempNodes == null)
+                {
+                    tempNodes = temp;
+                    currenttail = tempNodes;
+                }
+                else
+                {
+                    temp.next = tempNodes;
+                    tempNodes = temp;
+                }
+                currentCount++;
+
+                if(currentCount == k)
+                {
+                    currentCount = 0;
+                    if (final == null)
+                    {
+                        final = tempNodes;
+                        tempNodes = null;
+                        prevtail = currenttail;
+                    }
+                    else
+                    {
+                        prevtail.next = tempNodes;
+                        tempNodes = null;
+                        prevtail = currenttail;
+                    }
+                    cursor = current;
+                }
+                current = current.next;
+            }
+            if (tempNodes != null)
+            {
+                prevtail.next = cursor.next;
+            }
+
+            return final;
+    }
+}
