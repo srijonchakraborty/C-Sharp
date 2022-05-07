@@ -1,0 +1,36 @@
+public class Solution {
+     public bool IsPowerOfThree(int n)
+        {
+            if (n <= 0) return false;
+            bool flag = false;
+            int left = 0, right = 31;
+            while (left <= right)
+            {
+                int mid = (left + right) / 2;
+                int leftPow = (int)Math.Pow(3, left);
+                int rightPow = (int)Math.Pow(3, right);
+                int midPow = (int)Math.Pow(3, mid);
+
+                if (leftPow == n || rightPow == n)
+                {
+                    return true;
+                }
+                if (midPow == n)
+                {
+                    return true;
+                }
+                if (n > midPow && midPow>0)
+                {
+                    left = mid;
+                }
+                else
+                {
+                    right = mid;
+                }
+                left++;
+                right--;
+            }
+
+            return flag;
+        }
+}
