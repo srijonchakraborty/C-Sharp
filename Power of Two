@@ -1,0 +1,47 @@
+public class Solution {
+    public bool IsPowerOfTwo(int n) {
+            if(n<0)
+            {
+                return false;
+            }
+            bool flag = false;
+            int left = 0, right = 31;
+            while (left <= right)
+            {
+                int mid = (left + right) / 2;
+                int leftPow =(int) Math.Pow(2, left);
+                int rightPow = (int)Math.Pow(2, right);
+                int midPow = (int)Math.Pow(2, mid);
+
+                if (leftPow == n || rightPow == n)
+                {
+                    return true;
+                }
+                if ((leftPow*-1) == n || (rightPow*-1) == n)
+                {
+                    return true;
+                }
+                if (midPow == n)
+                {
+                    return true;
+                }
+                if ((-1*midPow) == n)
+                {
+                    return true;
+                }
+
+                if (n > midPow)
+                {
+                    left = mid;
+                }
+                else
+                {
+                    right = mid;
+                }
+                left++;
+                right--;
+            }
+
+            return flag;
+    }
+}
