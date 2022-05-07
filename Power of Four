@@ -1,0 +1,35 @@
+public class Solution {
+    public bool IsPowerOfFour(int n) {
+            if (n <= 0) return false;
+            bool flag = false;
+            int left = 0, right = 31;
+            while (left <= right)
+            {
+                int mid = (left + right) / 2;
+                int leftPow = (int)Math.Pow(4, left);
+                int rightPow = (int)Math.Pow(4, right);
+                int midPow = (int)Math.Pow(4, mid);
+
+                if (leftPow == n || rightPow == n)
+                {
+                    return true;
+                }
+                if (midPow == n)
+                {
+                    return true;
+                }
+                if (n > midPow)
+                {
+                    left = mid;
+                }
+                else
+                {
+                    right = mid;
+                }
+                left++;
+                right--;
+            }
+
+            return flag;
+    }
+}
