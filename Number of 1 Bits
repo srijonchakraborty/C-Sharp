@@ -1,0 +1,26 @@
+public class Solution {
+    public int HammingWeight(uint n) {
+            int oneCount = 0;
+            uint temp = n;
+            if (n== 0)
+            {
+                return 0;
+            }
+            if (n == 1)
+            {
+                return 1;
+               
+            }
+            while (temp > 0)
+            {
+                //Last bit 1 Check. If the both 1 and temp's last bits are one
+                var check = (temp & 1);
+                if (check == 1)
+                {
+                    oneCount++;
+                }
+                temp = temp >> 1; //Right Shift will divide the number by 1
+            }
+            return oneCount; 
+    }
+}
