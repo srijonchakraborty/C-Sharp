@@ -1,0 +1,56 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode RemoveZeroSumSublists(ListNode head) {
+            if (head == null) return null;//for No item
+            if (head.next == null && head.val == 0) return null;
+            if (head.next != null && head.next.next == null && (head.val + head.next.val) == 0) return null; //2 item
+            if (head.next != null && head.next.next == null && head.val == 0) return head.next; //2 item
+            if (head.next != null && head.next.next == null && head.val > 0 && head.next.val == 0)
+            {
+                head.next = null; //2 item
+                return head;
+            }
+
+            Dictionary<int, ListNode> temp = new Dictionary<int, ListNode>();
+            ListNode dummyNode = new ListNode(0);
+            ListNode current = head;
+            temp.Add(0, dummyNode);
+            dummyNode.next = head;
+            int accumulatingSum = 0;
+
+            while (current != null)
+            {
+                accumulatingSum += current.val;
+
+                if (temp.ContainsKey(accumulatingSum))
+                {
+                    int tempSum = accumulatingSum;
+                    ListNode itemToDelete = temp[accumulatingSum].next;
+                    while (itemToDelete != current)
+                    {
+
+                        tempSum = tempSum + itemToDelete.val;
+                        temp.Remove(tempSum);
+                        itemToDelete = itemToDelete.next;
+                    }
+                    temp[accumulatingSum].next = current.next;
+                }
+                else
+                {
+                    temp.Add(accumulatingSum, current);
+                }
+                current = current.next;
+            }
+            return dummyNode.next;
+    }
+}
