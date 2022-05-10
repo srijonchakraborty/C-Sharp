@@ -1,0 +1,62 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public bool IsSameTree(TreeNode p, TreeNode q) {
+            if (p == null && q == null) return true;
+            if (p == null && q != null) return false;
+            if (p != null && q == null) return false;
+
+            Queue<TreeNode> first = new Queue<TreeNode>();
+            first.Enqueue(p);
+            Queue<TreeNode> sec = new Queue<TreeNode>();
+            sec.Enqueue(q);
+
+            bool flag = true;
+
+            while (first.Count > 0 || sec.Count > 0)
+            {
+                if (first.Count == 0 || sec.Count == 0)
+                {
+                    flag = false;
+                    break;
+                }
+                var f = first.Dequeue();
+                var s = sec.Dequeue();
+
+               
+                if ((f == null && s != null)
+                    || (f != null && s == null))
+                {
+                    flag = false;
+                    break;
+                }
+                if((f?.val ?? int.MinValue) != (s?.val??int.MinValue))
+                {
+                    flag = false;
+                    break;
+                }
+                if (f != null)
+                {
+                    first.Enqueue(f.right);
+                    first.Enqueue(f.left);
+                }
+                if (s != null)
+                {
+                    sec.Enqueue(s.right);
+                    sec.Enqueue(s.left);
+                }
+            }
+            return flag;
+    }
+}
