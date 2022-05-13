@@ -1,0 +1,73 @@
+public class Solution {
+    public IList<IList<int>> FourSum(int[] nums, int target) {
+            if (nums == null) return new List<IList<int>>();
+            if (nums != null && nums.Length < 4) return new List<IList<int>>();
+            IList<IList<int>> finalTemp = new List<IList<int>>();
+            //Time: nlongn 
+            Array.Sort(nums);
+            int n = nums.Length;
+            //Time: N
+            for (int i = 0; i < n - 3; i++)
+            {
+                //avoid duplicate for position 1nd
+                if (i != 0 && nums[i - 1] == nums[i])
+                {
+                    continue;
+                }
+                else
+                {
+                    //Time :N^2
+                    for (int j = i+1; j < n - 2; j++)
+                    {
+                        //avoid duplicate for position 2nd
+                        if (j !=  i+1 && nums[j - 1] == nums[j])
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                             //Time :NlogN
+                            //bin search works on sorted Arrary that is why Array.Sort(nums) 
+                            //bin Search
+                            int left = j + 1, right = n - 1;
+                            while (left < right)
+                            {
+                                int check = nums[i] + nums[j] + nums[left] + nums[right];
+                                if (check == target)
+                                {
+                                    finalTemp.Add(new List<int>() { nums[i], nums[j] , nums[left], nums[right] });
+                                    //avoid duplicate for position 3rd
+                                    //Time:N
+                                    while (left < right && nums[left] == nums[left + 1])
+                                    {
+                                        left++;
+                                    }
+                                    //avoid duplicate for position 4th
+                                    //Time:N
+                                    while (left < right && nums[right] == nums[right - 1])
+                                    {
+                                        right--;
+                                    }
+                                    left++;
+                                    right--;
+                                }
+                                else
+                                {
+                                    if (check > target)
+                                    {
+                                        right--;
+                                    }
+                                    else
+                                    {
+                                        left++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return finalTemp; 
+    }
+}
