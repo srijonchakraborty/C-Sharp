@@ -1,0 +1,45 @@
+public class Solution {
+    public int FourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+            int counter=0;
+            Dictionary<int, int> sumvalueMapandCounter = new Dictionary<int, int>();
+            int n = nums1.Length;
+            //Time N^2
+            //We are keeping sum as key and value as how many times the result occured.
+            //for first 2 array
+            //Sum Frequency
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    int key = nums1[i] + nums2[j];
+                    if (sumvalueMapandCounter.ContainsKey(key))
+                    {
+                        //if found the increase how many time it occured
+                        sumvalueMapandCounter[key]++;
+                    }
+                    else
+                    {
+                        sumvalueMapandCounter[key]=1;
+                    }
+                }
+            }
+            //Time N^2
+            //now for other 2 arrary
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    int key = nums3[i] + nums4[j];
+                    // Reverse value of c is Exist or not in the Dictionary
+                    // Here our target is Zero that is why we will check exactly reverse value.
+                    // Otherwise we have to find reverse value + target
+
+                    if (sumvalueMapandCounter.ContainsKey(-key))
+                    {
+                        counter = counter + sumvalueMapandCounter[-key];
+                    }
+                }
+            }
+            return counter;
+        }
+}
