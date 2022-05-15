@@ -1,0 +1,44 @@
+//O(log n) runtime complexity with binary search
+
+public class Solution {
+    public int SearchInsert(int[] nums, int target) {
+            if (nums.Length == 1)
+            {
+                if (nums[0] >= target)
+                    return 0;
+                else
+                    return 1;
+            }
+            if (nums[nums.Length - 1] < target)
+            {
+                return nums.Length;
+            }
+            int idx = -1;
+            int left = 0;
+            int right = nums.Length - 1;
+            while (left < right)
+            {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target)
+                {
+                    idx = mid;
+                    break;
+                }
+
+                if (nums[mid] > target)
+                {
+                    right = mid;
+                }
+                else 
+                {
+                    left = mid+1;
+                }
+                if(left==right)
+                {
+                    idx = left;
+                    break;
+                }
+            }
+            return idx;
+    }
+}
