@@ -1,0 +1,44 @@
+/* The isBadVersion API is defined in the parent class VersionControl.
+      bool IsBadVersion(int version); */
+
+public class Solution : VersionControl {
+    //use this method to check, when you have to submit then comment the method
+    /*
+    bool IsBadVersion(int num)
+    {
+       return num >=1702766719 ? true : false;
+    }
+    */
+    
+    public int FirstBadVersion(int n) {
+            int res = 1;
+            int left = 1;
+            int right = n;
+            while (left < right)
+            {
+                int mid = left+(right-left) / 2;
+                //If version is bad them update res and update right to mid-1 
+                //because mid is already checked and it was bad so next time 
+                //we need to check the number before mid
+                if (IsBadVersion(mid))
+                {
+                    res = mid;
+                    right = mid;
+                }
+                //same way if the mid is good the left should be updated to mid+1
+                //because mid is already checked and it already a good version
+                //so, previous left and mid is same and we need to check from mid next
+                else
+                {
+                    left = mid+1;
+                }
+                //here checking with left or right are same
+                if(left==right && IsBadVersion(left))
+                {
+                    res=left;
+                    break;
+                }
+            }
+            return res;
+    }
+}
