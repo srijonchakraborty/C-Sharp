@@ -1,0 +1,27 @@
+public class Solution {
+    public void MoveZeroes(int[] nums) {
+           if (nums.Length == 1) return;
+            int last = 0;
+            while (nums[last] != 0 && last < nums.Length)
+            {
+                last++;
+                if (last >= nums.Length)
+                    return;
+            }
+            int current = last+1;
+            while (current < nums.Length)
+            {
+                if (nums[current] != 0)
+                {
+                    nums[last] = nums[current];
+                    nums[current] = 0;
+                   
+                    while (nums[last] != 0 && last < nums.Length)
+                    {
+                        last++;
+                    }
+                }
+                current++;
+            }
+    }
+}
