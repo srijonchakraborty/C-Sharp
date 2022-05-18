@@ -1,0 +1,21 @@
+public class Solution {
+      public int NumIdenticalPairs(int[] nums)
+        {
+            int pairCount = 0;
+            Dictionary<int, int> myTemp = new Dictionary<int, int>();
+            int ncr = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (myTemp.ContainsKey(nums[i]))
+                {
+                    pairCount += myTemp[nums[i]];
+                    myTemp[nums[i]] ++;
+                }
+                else
+                {
+                    myTemp.Add(nums[i], 1);
+                }
+            }
+            return pairCount;
+        }
+}
