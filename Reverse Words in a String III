@@ -1,0 +1,41 @@
+public class Solution {
+    public string ReverseWords(string s) {
+            int n=s.Length;
+            if (n == 1) return s;
+            char[] tempArray = new char[n];
+            int left = 0;
+            int right =0;
+            int tempArraryIndex = 0;
+            int prevright = right;
+            bool isFirstTime = true;
+            while (left< n)
+            {
+                if (isFirstTime == false)
+                {
+                    tempArray[tempArraryIndex] = ' ';
+                    tempArraryIndex++;
+                }
+                //find next white space
+                while(right<n && s[right]!=' ')
+                {
+                    prevright = right;
+                    right++;
+                }
+                if (isFirstTime)
+                {
+                    isFirstTime = false;
+                }
+                //reverse substring
+                while (prevright >= left)
+                {
+                    tempArray[tempArraryIndex] = s[prevright];
+                    prevright--;
+                    tempArraryIndex++;
+                }
+                //updating left and right
+                right++;//now right after space
+                left = right; //left is also in the same position like it was initially
+            }
+            return new string(tempArray);
+    }
+}
