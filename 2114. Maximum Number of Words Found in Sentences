@@ -1,0 +1,17 @@
+public class Solution {
+    public int MostWordsFound(string[] sentences) {
+            int max = 0;
+            int space = 0;
+            for (int i = 0; i < sentences.Length; i++)
+            {
+                for (int j = 0; j < sentences[i].Length; j++)
+                {
+                    if (sentences[i][j] == ' ')
+                        space++;
+                }
+                max = Math.Max(max, (space + 1));
+                space = 0;
+            }
+            return max;
+    }
+}
