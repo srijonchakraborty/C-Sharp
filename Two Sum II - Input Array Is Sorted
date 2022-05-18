@@ -1,3 +1,41 @@
+//New
+public class Solution {
+    public int[] TwoSum(int[] numbers, int target) {
+            int[] final = new int[2];
+            int left = 0;
+            int right = numbers.Length - 1;
+            while (left < right)
+            {
+                int check = numbers[left] + numbers[right];
+                if (check == target)
+                {
+                    final[0] = left + 1;
+                    final[1] = right + 1;
+                    break;
+                }
+                else if (check > target)
+                {
+                    right--;
+                    while (left < right && numbers[right]== numbers[right+1])
+                    {
+                        right--;
+                    }
+                }
+                else if (check < target)
+                {
+                    left++;
+                    while (left < right && numbers[left-1] == numbers[left])
+                    {
+                        left++;
+                    }
+                }
+            }
+            return final;
+    }
+}
+
+
+//OLD
 public class Solution {
     public int[] TwoSum(int[] numbers, int target) {
           int[] tempArray = new int[2];
