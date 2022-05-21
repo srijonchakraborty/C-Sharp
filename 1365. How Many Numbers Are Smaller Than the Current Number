@@ -1,0 +1,34 @@
+public class Solution {
+    public int[] SmallerNumbersThanCurrent(int[] nums) {
+            int n = nums.Length;
+            int[] res = new int[n];
+            int max = nums.Max();
+            int[] temp = new int[max+1];
+            
+            //Counting the frequency of the items
+            for (int i = 0; i < n; i++)
+            {
+                temp[nums[i]] = temp[nums[i]] + 1;
+            }
+            //updating the values
+            for (int i =1; i < max; i++)
+            {
+                temp[i] = temp[i] + temp[i - 1];
+            }
+            //The temp array is a cumulative counting sum array and it is a sorted array
+            //We can get sum sum of smaller number by check the previous index 
+            for (int i = 0; i < n; i++)
+            {
+                if (nums[i] == 0)
+                {
+                    res[i] = 0;
+                }
+                else
+                {
+                    res[i] = temp[nums[i] - 1];
+                }
+            }
+
+            return res;
+    }
+}
