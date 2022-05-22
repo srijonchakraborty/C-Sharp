@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public bool IsCompleteTree(TreeNode root) {
+            //using BFS  Level Order traversal
+            //Idea is simple that is if we find a null value then we should not find a non null value from the Queue
+            bool res = false;
+            Queue<TreeNode> myQ = new Queue<TreeNode>();
+            myQ.Enqueue(root);
+            
+            while (myQ.Count > 0)
+            {
+                TreeNode curr = myQ.Dequeue();
+                if (curr == null)
+                {
+                    res = true;
+                }
+                else
+                {
+                    if (res)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        myQ.Enqueue(curr.left);
+                        myQ.Enqueue(curr.right);
+                    }
+                }
+            }
+            return res;
+    }
+}
