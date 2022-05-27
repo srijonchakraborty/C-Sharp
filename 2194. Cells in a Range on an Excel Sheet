@@ -1,0 +1,27 @@
+public class Solution {
+    public IList<string> CellsInRange(string s) {
+            IList<string> res = new List<string>();
+            int start = Convert.ToInt32(s[1].ToString());
+            int end = Convert.ToInt32(s[4].ToString());
+
+            char startChar = s[0];
+            char endchar = s[3];
+
+            while(startChar<= endchar)
+            {
+                for (int i = start; i <= end; i++)
+                {
+                    res.Add(startChar + i.ToString());
+                }
+                if (startChar == endchar)
+                    break;
+
+                //Fetch Next Char Logic
+                if (startChar == 'Z')
+                    startChar = 'A';
+                else
+                    startChar = (char)(((int)startChar) + 1);
+            }
+            return res;
+    }
+}
