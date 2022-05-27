@@ -1,0 +1,28 @@
+public class Solution {
+    public int MinPartitions(string n) {
+          //Because if substract binary number from a decimal number then maximum time it iterate is 
+            // the maximun digit value in side the given number
+            //if number is 927834 the it will iterate 9 time to reduce the number to zero
+            /*
+             *  (1) 927834-111111=816723
+             *  (2) 816723-111111=705612
+             *  (3) 705612-101111=604501
+             *  (4) 604501-101101=503400
+             *  (5) 503400-101100=402300
+             *  (6) 402300-101100=301200
+             *  (7) 301200-101100=200100
+             *  (8) 200100-100100=100000
+             *  (9) 100000-100000=000000
+             */
+
+            int max = -1;
+            for (int i = 0; i < n.Length; i++)
+            {
+                 //This line take less space but extra time
+                 //max = Math.Max(max, Convert.ToInt32(.ToString()));
+                // However, this take avg space but better time 61% Better
+                 max = Math.Max(max, n[i]-'0'); //ASCII substraction
+            }
+            return max;
+    }
+}
