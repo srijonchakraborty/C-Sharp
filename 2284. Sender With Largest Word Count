@@ -1,0 +1,41 @@
+public class Solution {
+    public string LargestWordCount(string[] messages, string[] senders) {
+            string res = "";
+            string currentkey;
+            int n = senders.Length;
+            int currentWordCount = 0;
+
+            Dictionary<string, int> itemTracker = new Dictionary<string, int>();
+            for (int i = 0; i < n; i++)
+            {
+                currentWordCount = messages[i].Split(' ').Length;
+                currentkey = senders[i];
+                if (!itemTracker.ContainsKey(currentkey))
+                {
+                    itemTracker.Add(currentkey, currentWordCount);
+                }
+                else
+                {
+                    itemTracker[currentkey] += currentWordCount;
+                }
+            }
+            currentWordCount = 0;
+            foreach (var itm in itemTracker)
+            {
+                if (currentWordCount == itm.Value)
+                {
+                    if (string.Compare(res, itm.Key, StringComparison.Ordinal) < 0)
+                    {
+                        res = itm.Key;
+                    }
+                    continue;
+                }
+                if (currentWordCount < itm.Value)
+                {
+                    currentWordCount = itm.Value;
+                    res = itm.Key;
+                }
+            }
+            return res;
+    }
+}
