@@ -1,0 +1,34 @@
+public class Solution {
+    public int[] RelativeSortArray(int[] arr1, int[] arr2) {
+            Dictionary<int, int> myTemp = new Dictionary<int, int>();
+            List< int> myTempOther = new List< int>();
+            int i, n=arr1.Length, n1 = arr2.Length;
+          
+            for (i = 0; i < n1; i++)
+            {
+                myTemp.Add(arr2[i], 0);
+            }
+            for (i = 0; i < n; i++)
+            {
+                if (myTemp.ContainsKey(arr1[i])) myTemp[arr1[i]]++;
+                else myTempOther.Add(arr1[i]);
+            }
+            int jMax = 0;
+            int currentIteration = 0;
+            foreach (var itm in myTemp)
+            {
+                jMax = itm.Value;
+                for (i = 0; i < jMax; i++)
+                {
+                    arr1[currentIteration++] = itm.Key;
+                }
+            }
+            //if we can't use built in sort then I will use merge sort to achive nLogn
+            myTempOther.Sort();
+            foreach (var itm in myTempOther)
+            {
+                arr1[currentIteration++] = itm;
+            }
+            return arr1;
+    }
+}
