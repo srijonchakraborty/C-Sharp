@@ -1,0 +1,29 @@
+public class Solution {
+    public int MinMaxGame(int[] nums) {
+            int res = 0;
+            int i = 0;
+            int n = nums.Length;
+            while (n > 1)
+            {
+                n = n / 2;
+                for (i=0;i<n;i++)
+                {
+                    //for even
+                    if (i == 0)
+                    {
+                        nums[i] = Math.Min(nums[i], nums[i + 1]);
+                    }
+                    else if (i % 2 == 0)
+                    {
+                        nums[i] = Math.Min(nums[(i*2)], nums[(i*2)+1]);
+                    }
+                    else
+                    {
+                        nums[i] = Math.Max(nums[(i * 2)], nums[(i * 2) + 1]);
+                    }
+                }
+            }
+            res = nums[0];
+            return res;
+    }
+}
