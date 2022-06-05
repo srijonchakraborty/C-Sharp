@@ -1,0 +1,17 @@
+public class Solution {
+    public int PartitionArray(int[] nums, int k) {
+            int res = 1;
+            Array.Sort(nums);
+            int currentCursor = nums[0];
+          
+            for (int i =1; i < nums.Length; i++)
+            {
+                if (!(Math.Abs(currentCursor - nums[i]) <= k))
+                {
+                    currentCursor = nums[i];
+                    res++;
+                }
+            }
+            return res;
+    }
+}
