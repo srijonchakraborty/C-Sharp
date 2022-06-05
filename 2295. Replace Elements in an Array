@@ -1,0 +1,20 @@
+public class Solution {
+    public int[] ArrayChange(int[] nums, int[][] operations) {
+            Dictionary<int, int> myTemp = new Dictionary<int, int>();
+            int n = nums.Length;
+            int i = 0;
+            int currentKeyIdx = -1;
+            for (i = 0; i < n; i++)
+            {
+                myTemp.Add(nums[i],i);
+            }
+            foreach (var itm in operations)
+            {
+                currentKeyIdx = myTemp[itm[0]];
+                myTemp.Remove(itm[0]);
+                myTemp.Add(itm[1], currentKeyIdx);
+                nums[currentKeyIdx] = itm[1];
+            }
+            return nums;
+    }
+}
