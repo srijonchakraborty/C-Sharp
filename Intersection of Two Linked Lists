@@ -1,0 +1,32 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode GetIntersectionNode(ListNode headA, ListNode headB) {
+            if (headA == null || headB ==null) return null;
+            ListNode res = null;
+            ListNode currentA = headA;
+            ListNode currentB = headB;
+            Dictionary< ListNode, int> myTemp = new Dictionary< ListNode, int>();
+            while(currentA!=null)
+            {
+                myTemp.Add(currentA, currentA.val);
+                currentA = currentA.next;
+            }
+            while (currentB != null)
+            {
+                if (myTemp.ContainsKey(currentB))
+                {
+                    res = currentB;
+                    break;
+                }
+                currentB = currentB.next;
+            }
+            return res;
+    }
+}
