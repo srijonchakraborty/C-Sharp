@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+		int count =0;
+		public int AverageOfSubtree(TreeNode root)
+		{
+			if (root == null) return 0;
+			int nodecount;
+			DFSAverageOfSubtree(root, out nodecount);
+			return count;
+		}
+		public int DFSAverageOfSubtree(TreeNode root,out int nodecount)
+        {
+			nodecount =0;
+			if (root == null) return 0;
+			int leftnodeCount;
+			int rightnodeCount;
+			int total=0;
+			total = DFSAverageOfSubtree(root.left, out leftnodeCount);
+			total += DFSAverageOfSubtree(root.right, out rightnodeCount);
+			total += root.val;
+			nodecount = leftnodeCount + rightnodeCount + 1;
+			if ((total/ nodecount) == root.val)
+            {
+				count++;
+			}
+			return total;
+		}
+}
