@@ -1,0 +1,60 @@
+public class Solution {
+   		Stack<char> mystack = new Stack<char>();
+		public bool IsValid(string s)
+		{
+			for(int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+					mystack.Push('(');
+				}
+				else if (s[i] == ')')
+                {
+					if (checkMyPOP('(') == false)
+					{
+						return false;
+					}
+				}
+				else if (s[i] == '{')
+				{
+					mystack.Push('{');
+				}
+				else if (s[i] == '}')
+				{
+					//check popvalid
+					if (checkMyPOP('{') == false)
+					{
+						return false;
+					}
+				}
+				else if (s[i] == '[')
+				{
+					mystack.Push('[');
+				}
+				else if (s[i] == ']')
+				{
+					//check popvalid
+					if (checkMyPOP('[')==false)
+					{
+						return false;
+					}
+				}
+			}
+
+			return mystack.Count == 0;
+		}
+		
+		bool checkMyPOP(char c)
+        {
+            if (mystack.Count == 0) return false;
+			if (mystack.Peek() == c)
+			{
+				mystack.Pop();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+}
