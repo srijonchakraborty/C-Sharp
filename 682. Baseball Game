@@ -1,0 +1,35 @@
+public class Solution {
+    public int CalPoints(string[] ops) {
+        List<int> temp = new List<int>();
+        int currentlistidx = -1;
+        int res = 0;
+        for (int idx = 0; idx < ops.Length; idx++)
+        {
+            if("+" == ops[idx])
+            {
+                res = temp[currentlistidx - 1] + temp[currentlistidx];
+                temp.Add(res);
+                currentlistidx++;
+            }
+            else if("D" == ops[idx])
+            {
+                res = temp[currentlistidx] * 2;
+                temp.Add(res);
+                currentlistidx++;
+            }
+            else if ("C" == ops[idx])
+            {
+                temp.RemoveAt(currentlistidx);
+                currentlistidx--;
+            }
+            else 
+            {
+                res = Convert.ToInt32(ops[idx]);
+                temp.Add(res);
+                currentlistidx++;
+            }
+        }
+        res = temp.Sum();
+        return res;
+    }
+}
