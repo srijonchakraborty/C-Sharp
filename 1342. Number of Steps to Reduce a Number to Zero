@@ -1,0 +1,32 @@
+public class Solution {
+    public int NumberOfSteps(int num) {
+            int stepcount = 0;
+            int m = 1;
+			if (num == 0) return stepcount;
+
+            while (num > 0)
+            {
+                if (num % 2 == 0)
+                {
+                    //Divide by 2
+					num >>= 1;
+					stepcount++;
+				}
+                else
+                {
+                    //minus 1
+					m = 1;
+					while (!((num & m) > 0))
+					{
+						num = num ^ m;
+						m <<= 1;
+					}
+
+					num = num ^ m;
+					stepcount++;
+				}
+            }
+
+			return stepcount;
+    }
+}
