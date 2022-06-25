@@ -1,0 +1,22 @@
+public class Solution {
+    public int CountAsterisks(string s) {
+        int res = 0;
+        int i = 0;
+        int idx = 0;
+        string[] subs = s.Split('|');
+        int len = subs.Length;
+        while (idx < len)
+        {
+            for(i=0; i < subs[idx].Length; i++)
+            {
+                if (subs[idx][i] == '*')
+                {
+                    res++;
+                }
+            }
+            idx = idx + 2;
+        }
+
+        return res;
+    }
+}
