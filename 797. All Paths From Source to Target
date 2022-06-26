@@ -1,0 +1,25 @@
+public class Solution {
+        public IList<IList<int>> AllPathsSourceTarget(int[][] graph)
+        {
+            List<IList<int>> finalres = new List<IList<int>>();
+            var currentres = new Stack<int>(); 
+            currentres.Push(0);
+            DFSAllPathsSourceTarget(graph, finalres, currentres, 0, graph.Length - 1);
+            return finalres;
+        }
+        public void DFSAllPathsSourceTarget(int[][] graph,IList<IList<int>> finalres, Stack<int> currentres, int source,int destination)
+        {
+            if (destination == source)
+            {
+                finalres.Add(new List<int>(currentres.Reverse()));
+                return;
+            }
+            
+            for(int i=0;i< graph[source].Length; i++)
+            {
+                currentres.Push(graph[source][i]);
+                DFSAllPathsSourceTarget(graph, finalres, currentres, graph[source][i], destination);
+                currentres.Pop();
+            }
+        }
+}
