@@ -1,0 +1,54 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public TreeNode BalanceBST(TreeNode root)
+    {
+        if (root == null) return null;
+        TreeNode currNode = null;
+        TreeNode finalRoot = null;
+        List<int> items = new List<int>();
+        Stack<TreeNode> myStack = new Stack<TreeNode>();
+        currNode = root;
+
+        //Inorder traversal for sorted list          
+        while (myStack.Count > 0 || currNode!=null)
+        {
+            if (currNode != null)
+            {
+                myStack.Push(currNode);
+                currNode = currNode.left;
+            }
+            else
+            {
+                currNode = myStack.Pop();
+                items.Add(currNode.val);
+                currNode = currNode.right;
+            }
+        }
+        //Create BST
+        finalRoot = CreateBST(items, 0, items.Count - 1);
+        return finalRoot;
+    }
+    private TreeNode CreateBST(List<int> items, int left, int right)
+    {
+        if (left > right) return null;
+
+        int mid = ((right - left) / 2) + left;
+
+        TreeNode curr = new TreeNode() { val = items[mid] };
+        curr.left = CreateBST(items, left, mid - 1);
+        curr.right = CreateBST(items, mid + 1, right);
+        return curr;
+    }
+}
