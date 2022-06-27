@@ -1,0 +1,68 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+        bool isUnivalTreeFlag = true;
+        public bool IsUnivalTree(TreeNode root)
+        {
+            DFSIsUnivalTree(root, root.val);
+            return isUnivalTreeFlag;
+        }
+        void DFSIsUnivalTree(TreeNode root,int firstvalue)
+        {
+            if (root == null) return;
+
+            if(firstvalue != root.val)
+            {
+                isUnivalTreeFlag = false;
+            }
+            if (isUnivalTreeFlag)
+            {
+                DFSIsUnivalTree(root.left, firstvalue);
+            }
+            if (isUnivalTreeFlag)
+            {
+                DFSIsUnivalTree(root.right, firstvalue);
+            }
+        }
+}
+---------------------------------------------------------------
+
+OR 
+///Stack Approch (It is slower . WHy Do)
+public bool IsUnivalTreeOld(TreeNode root)
+{
+    if (root == null) return false;
+    int firstvalue = root.val;
+    TreeNode tempCurr = null;
+    Stack<TreeNode> mystack = new Stack<TreeNode>();
+    mystack.Push(root);
+
+    while (mystack.Count > 0)
+    {
+        tempCurr = mystack.Pop();
+        if (firstvalue!= tempCurr.val)
+        {
+            return false;
+        }
+        if (tempCurr.right != null)
+        {
+            mystack.Push(tempCurr.right);
+        }
+        if (tempCurr.left != null)
+        {
+            mystack.Push(tempCurr.left);
+        }
+    }
+    return true;
+}
