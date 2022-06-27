@@ -1,0 +1,30 @@
+List<int> resList = new List<int>();
+    public IList<int> GetAllElements(TreeNode root1, TreeNode root2)
+    {
+        DFSGetAllElements(root1, root2);
+        return resList.OrderBy(c=>c).ToList();
+    }
+
+    void DFSGetAllElements(TreeNode root1, TreeNode root2)
+    {
+        if (root1 == null && root2 == null) return;
+
+        DFSGetAllElements(root1?.left, root2?.left);
+        //LIST insertionLogic
+
+        if(root1==null && root2 != null)
+        {
+            resList.Add(root2.val);
+        }
+        else if (root1!= null && root2 == null)
+        {
+            resList.Add(root1.val);
+        }
+        else if (root1 != null && root2 != null)
+        {
+            resList.Add(root1.val);
+            resList.Add(root2.val);
+        }
+
+        DFSGetAllElements(root1?.right, root2?.right);
+    }
