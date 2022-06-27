@@ -1,0 +1,63 @@
+public class Solution {
+    public int IslandPerimeter(int[][] grid) {
+            int res = 0;
+            int row = grid.Length-1;
+            int col = grid[0].Length-1;
+            for (int i = 0; i <= row; i++)
+            {
+                for (int j = 0; j <= col; j++)
+                {
+                    if (grid[i][j] == 1)
+                    { 
+                        //Up and Left start
+                        if (i > 0 && j > 0)
+                        {
+                            if (grid[i - 1][j] == 0)
+                                res++;
+                            if (grid[i][j-1] == 0)
+                                res++;
+                        }
+                        else if (i > 0 && j == 0)
+                        {
+                            res++;
+                            if (grid[i - 1][j] == 0)
+                                res++;
+                        }
+                        else if (i == 0 && j > 0)
+                        {
+                            res++;
+                            if (grid[i][j-1] == 0)
+                                res++;
+                        }
+                        else if (i == 0 && j == 0)
+                        {
+                            res += 2;
+                        }
+                       //Up and Left end
+
+                        //Down and Right
+                        if (i < row)
+                        {  
+                            if (grid[i+1][j] == 0)
+                                res++;
+                        }
+                        else
+                        {
+                            res++;
+                        }
+
+                        if (j < col)
+                        {
+                            if (grid[i][j + 1] == 0)
+                                res++;
+                        }
+                        else
+                        {
+                            res++;
+                        }
+                    }
+                }
+            }
+            return res;
+    }
+}
