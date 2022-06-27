@@ -1,0 +1,19 @@
+public class Solution {
+    public int[][] Transpose(int[][] matrix) {
+        int oldRow = matrix.Length;
+        int oldCol = matrix[0].Length;
+        int[][] res = new int[oldCol][];
+        bool isfirst = true;
+        for(int r=0;r< oldRow; r++)
+        {
+            for (int c = 0; c < oldCol; c++)
+            {
+                if (isfirst)
+                    res[c] = new int[oldRow];
+                res[c][r] = matrix[r][c];
+            }
+            if (isfirst) isfirst = false;
+        }
+        return res;
+    }
+}
