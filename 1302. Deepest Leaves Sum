@@ -11,27 +11,28 @@
  *     }
  * }
  */
-public class Solution {
+public class Solution 
+{
         Dictionary<int, int> myDictionary = new Dictionary<int, int>();
 		
-		public int DeepestLeavesSum(TreeNode root)
+	public int DeepestLeavesSum(TreeNode root)
+	{
+		if (root == null) return 0;
+		DFS(root, 0);
+		return myDictionary[myDictionary.Keys.Max()];
+	}
+	void DFS(TreeNode root,int prevs)
+	{
+		if (root == null) return;
+		if (myDictionary.ContainsKey(prevs + 1))
 		{
-			if (root == null) return 0;
-			DFS(root, 0);
-			return myDictionary[myDictionary.Keys.Max()];
+			myDictionary[prevs + 1] += root.val;
 		}
-		void DFS(TreeNode root,int prevs)
-        {
-			if (root == null) return;
-            if (myDictionary.ContainsKey(prevs + 1))
-            {
-				myDictionary[prevs + 1] += root.val;
-			}
-            else
-            {
-				myDictionary.Add((prevs + 1), root.val);
-			}
-			DFS(root.left, prevs + 1);
-			DFS(root.right, prevs + 1);
+		else
+		{
+			myDictionary.Add((prevs + 1), root.val);
 		}
+		DFS(root.left, prevs + 1);
+		DFS(root.right, prevs + 1);
+	}
 }
